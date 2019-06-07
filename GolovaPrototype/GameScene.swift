@@ -30,8 +30,15 @@ class GameScene: SKScene {
 //                                              SKAction.fadeOut(withDuration: 0.5),
 //                                              SKAction.removeFromParent()]))
 //        }
-        head = .init(imageNamed: "head.png")
-        defaultHeadSize = head.size
+        
+        headPartUpper = .init(imageNamed: "headPartUpper")
+        headPartLower = .init(imageNamed: "headPartLower")
+        
+        headPartUpper.anchorPoint = .init(x: 0.5, y: 0.0)
+        headPartLower.anchorPoint = .init(x: 0.5, y: 1.0)
+        
+        self.addChild(headPartUpper)
+        self.addChild(headPartLower)
     }
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
@@ -51,15 +58,18 @@ class GameScene: SKScene {
         
         let locations = touches.map { $0.location(in: self) }
         let center = locations.reduce(CGPoint.zero, +)/CGFloat(touches.count)
+        let gap = locations.max { $0.y > $1.y }!.y - locations.min { $0.y > $1.y }!.y
         
-        head.position = center
+        let rightmost = locations.max { $0.x > $1.x }!
+        let leftmost = locations.min { $0.x > $1.x }!
         
-        if locations.count == 2 {
-            let gap = locations.max { $0.y > $1.y }!.y - locations.min { $0.y < $1.y }!.y
-            head.size = CGSize(width: head.size.width, height: gap)
-        } else {
-            head.size = defaultHeadSize
-        }
+        let angle = atan2(leftmost.y - rightmost.y, leftmost.x - rightmost.x)
+        
+        headPartUpper.position = center + .init(x: 0, y: -gap/2)
+        headPartLower.position = center + .init(x: 0, y:  gap/2)
+        
+        headPartUpper.zRotation = angle
+        headPartLower.zRotation = angle
     }
     
     override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
@@ -74,7 +84,8 @@ class GameScene: SKScene {
         // Called before each frame is rendered
     }
     
-    var head: SKSpriteNode!
+    var headPartUpper: SKSpriteNode!
+    var headPartLower: SKSpriteNode!
     var defaultHeadSize: CGSize = .zero
 }
 
