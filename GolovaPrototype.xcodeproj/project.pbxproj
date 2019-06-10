@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		9E0F1DF622AEAED500E23A07 /* CGPoint+Math.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E0F1DF522AEAED500E23A07 /* CGPoint+Math.swift */; };
 		9E80DF2E22AA77490087FFA5 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E80DF2D22AA77490087FFA5 /* AppDelegate.swift */; };
 		9E80DF3022AA77490087FFA5 /* GameScene.sks in Resources */ = {isa = PBXBuildFile; fileRef = 9E80DF2F22AA77490087FFA5 /* GameScene.sks */; };
 		9E80DF3222AA77490087FFA5 /* Actions.sks in Resources */ = {isa = PBXBuildFile; fileRef = 9E80DF3122AA77490087FFA5 /* Actions.sks */; };
@@ -37,6 +38,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		9E0F1DF522AEAED500E23A07 /* CGPoint+Math.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CGPoint+Math.swift"; sourceTree = "<group>"; };
 		9E80DF2A22AA77490087FFA5 /* GolovaPrototype.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = GolovaPrototype.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		9E80DF2D22AA77490087FFA5 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		9E80DF2F22AA77490087FFA5 /* GameScene.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = GameScene.sks; sourceTree = "<group>"; };
@@ -80,6 +82,30 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		9E0F1DF722AEAEE600E23A07 /* Sources */ = {
+			isa = PBXGroup;
+			children = (
+				9E80DF2D22AA77490087FFA5 /* AppDelegate.swift */,
+				9E80DF2F22AA77490087FFA5 /* GameScene.sks */,
+				9E80DF3122AA77490087FFA5 /* Actions.sks */,
+				9E80DF3322AA77490087FFA5 /* GameScene.swift */,
+				9E80DF3522AA77490087FFA5 /* GameViewController.swift */,
+				9E0F1DF522AEAED500E23A07 /* CGPoint+Math.swift */,
+			);
+			path = Sources;
+			sourceTree = "<group>";
+		};
+		9E0F1DF822AEAEF500E23A07 /* Assets */ = {
+			isa = PBXGroup;
+			children = (
+				9E80DF3722AA77490087FFA5 /* Main.storyboard */,
+				9E80DF3A22AA774A0087FFA5 /* Assets.xcassets */,
+				9E80DF3C22AA774A0087FFA5 /* LaunchScreen.storyboard */,
+				9E80DF3F22AA774A0087FFA5 /* Info.plist */,
+			);
+			path = Assets;
+			sourceTree = "<group>";
+		};
 		9E80DF2122AA77490087FFA5 = {
 			isa = PBXGroup;
 			children = (
@@ -103,15 +129,8 @@
 		9E80DF2C22AA77490087FFA5 /* GolovaPrototype */ = {
 			isa = PBXGroup;
 			children = (
-				9E80DF2D22AA77490087FFA5 /* AppDelegate.swift */,
-				9E80DF2F22AA77490087FFA5 /* GameScene.sks */,
-				9E80DF3122AA77490087FFA5 /* Actions.sks */,
-				9E80DF3322AA77490087FFA5 /* GameScene.swift */,
-				9E80DF3522AA77490087FFA5 /* GameViewController.swift */,
-				9E80DF3722AA77490087FFA5 /* Main.storyboard */,
-				9E80DF3A22AA774A0087FFA5 /* Assets.xcassets */,
-				9E80DF3C22AA774A0087FFA5 /* LaunchScreen.storyboard */,
-				9E80DF3F22AA774A0087FFA5 /* Info.plist */,
+				9E0F1DF722AEAEE600E23A07 /* Sources */,
+				9E0F1DF822AEAEF500E23A07 /* Assets */,
 			);
 			path = GolovaPrototype;
 			sourceTree = "<group>";
@@ -269,6 +288,7 @@
 			files = (
 				9E80DF3422AA77490087FFA5 /* GameScene.swift in Sources */,
 				9E80DF3622AA77490087FFA5 /* GameViewController.swift in Sources */,
+				9E0F1DF622AEAED500E23A07 /* CGPoint+Math.swift in Sources */,
 				9E80DF2E22AA77490087FFA5 /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -445,7 +465,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				INFOPLIST_FILE = GolovaPrototype/Info.plist;
+				INFOPLIST_FILE = "$(SRCROOT)/GolovaPrototype/Assets/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -462,7 +482,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				INFOPLIST_FILE = GolovaPrototype/Info.plist;
+				INFOPLIST_FILE = "$(SRCROOT)/GolovaPrototype/Assets/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
