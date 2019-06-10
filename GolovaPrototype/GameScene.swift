@@ -51,25 +51,37 @@ class GameScene: SKScene {
 //        touches
 //            .filter { $0.location(in: self.view).fallsIn(head.frame) }
 //            .forEach { $0. }
+        
+        guard let locations = event?.allTouches?.map({ $0.location(in: self) }) else { return }
+        
+        centerDelta = headPartUpper.position - locations.reduce(CGPoint.zero, +)/CGFloat(touches.count)
+        
+        distanceDelta =
+            (headPartLower.position.y - headPartUpper.position.y) -
+            (locations.max { $0.y > $1.y }!.y - locations.min { $0.y > $1.y }!.y)
+        
+        if locations.count == 2 {
+            angleDelta = headPartUpper.zRotation - atan2(locations[0].y - locations[1].y, locations[0].x - locations[1].x)
+        }
     }
     
     override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
 //        for t in touches { self.touchMoved(toPoint: t.location(in: self)) }
         
         let locations = touches.map { $0.location(in: self) }
-        let center = locations.reduce(CGPoint.zero, +)/CGFloat(touches.count)
-        let gap = locations.max { $0.y > $1.y }!.y - locations.min { $0.y > $1.y }!.y
-        
-        let rightmost = locations.max { $0.x > $1.x }!
-        let leftmost = locations.min { $0.x > $1.x }!
-        
-        let angle = atan2(leftmost.y - rightmost.y, leftmost.x - rightmost.x)
+        let center = centerDelta + locations.reduce(CGPoint.zero, +)/CGFloat(touches.count)
+        let gap = distanceDelta + locations.max { $0.y > $1.y }!.y - locations.min { $0.y > $1.y }!.y
         
         headPartUpper.position = center + .init(x: 0, y: -gap/2)
         headPartLower.position = center + .init(x: 0, y:  gap/2)
         
-        headPartUpper.zRotation = angle
-        headPartLower.zRotation = angle
+        if locations.count == 2 {
+            let angle = angleDelta + atan2(locations[0].y - locations[1].y, locations[0].x - locations[1].x)
+            print("\(angleDelta), \(atan2(locations[0].y - locations[1].y, locations[0].x - locations[1].x))")
+            
+            headPartUpper.zRotation = angle
+            headPartLower.zRotation = angle
+        }
     }
     
     override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
@@ -86,7 +98,10 @@ class GameScene: SKScene {
     
     var headPartUpper: SKSpriteNode!
     var headPartLower: SKSpriteNode!
-    var defaultHeadSize: CGSize = .zero
+    
+    var centerDelta: CGPoint = .zero
+    var angleDelta: CGFloat = 0.0
+    var distanceDelta: CGFloat = 0.0
 }
 
 /*
@@ -132,7 +147,15 @@ extension CGPoint {
         return CGPoint(x: a.x + b.x, y: a.y + b.y)
     }
     
+    static func -(_ a: CGPoint, _ b: CGPoint) -> CGPoint {
+        return CGPoint(x: a.x - b.x, y: a.y - b.y)
+    }
+    
     static func /(_ a: CGPoint, _ b: CGFloat) -> CGPoint {
         return CGPoint(x: a.x / b, y: a.y / b)
+    }
+    
+    static func *(_ a: CGPoint, _ b: CGFloat) -> CGPoint {
+        return CGPoint(x: a.x * b, y: a.y * b)
     }
 }
