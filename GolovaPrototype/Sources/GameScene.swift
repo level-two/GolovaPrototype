@@ -12,16 +12,17 @@ import GameplayKit
 class GameScene: SKScene {
     override func didMove(to view: SKView) {
         headPartUpper = .init(imageNamed: "headPartUpper")
+        headPartMiddle = .init(imageNamed: "headPartMiddle")
         headPartLower = .init(imageNamed: "headPartLower")
-        
+
         headPartUpper.anchorPoint = .init(x: 0.5, y: 0.0)
         headPartLower.anchorPoint = .init(x: 0.5, y: 1.0)
-        
+        headPartMiddle.centerRect = .init(x: 0.4, y: 0.4, width: 0.2, height: 0.2)
+
         head = .init()
-        
         head.addChild(headPartUpper)
+        head.addChild(headPartMiddle)
         head.addChild(headPartLower)
-        
         self.addChild(head)
     }
     
@@ -64,9 +65,11 @@ class GameScene: SKScene {
         if distance >= 0 {
             headPartUpper.position = .init(x: 0, y: distance/2)
             headPartLower.position = .init(x: 0, y: -distance/2)
+            headPartMiddle.size.height = distance
         } else {
             headPartUpper.position = .zero
             headPartLower.position = .zero
+            headPartMiddle.size.height = 0
         }
         
         let angle = angleDelta + atan2(locations[0].y - locations[1].y, locations[0].x - locations[1].x)
@@ -84,6 +87,7 @@ class GameScene: SKScene {
     }
     
     var headPartUpper: SKSpriteNode!
+    var headPartMiddle: SKSpriteNode!
     var headPartLower: SKSpriteNode!
     var head: SKNode!
     
